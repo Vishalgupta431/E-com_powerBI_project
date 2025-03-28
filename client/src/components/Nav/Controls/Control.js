@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import Cart from '../../Card/Cart/Cart';
 import { useContext } from 'react';
 import { WishItemsContext } from '../../../Context/WishItemsContext';
+import CartItemsProvider from '../../Card/Cart/CartItemsContext';
 
 const Control = () => {
     const wishItems = useContext(WishItemsContext)
