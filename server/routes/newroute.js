@@ -5,39 +5,54 @@ const Order = require("../models/newdata");
 router.post("/", async (req, res) => {
     try {
         const {
-            OrderID,
-            OrderDate,
-            ShipDate,
-            ShipMode,
-            CustomerID,
-            CustomerName,
-            Address,
+            RowID,
+            Segment,
+            Country,
             City,
             State,
+            Region,
+            Category,
+            SubCategory,
+            Sales,
+            Quantity,
+            Profit,
+            Returns,
+            AverageDelivery,
+            ShipMode,
+            ShipDate,
+            OrderID,
+            OrderDate,
+            CustomerID,
+            CustomerName,
+            ProductID,
+            ProductName,
             PaymentMode,
-            TotalAmount,
-            Items, // This should be an array of items
         } = req.body;
 
-        // Check if Items array exists and has at least one item
-        if (!Items || !Array.isArray(Items) || Items.length === 0) {
-            return res.status(400).json({ message: "Items array is required and cannot be empty." });
-        }
-
-        // Create new order with multiple items
+        // Create new order
         const newOrder = new Order({
-            OrderID,
-            OrderDate,
-            ShipDate,
-            ShipMode,
-            CustomerID,
-            CustomerName,
-            Address,
+            RowID,
+            Segment,
+            Country,
             City,
             State,
+            Region,
+            Category,
+            SubCategory,
+            Sales,
+            Quantity,
+            Profit,
+            Returns,
+            AverageDelivery,
+            ShipMode,
+            ShipDate,
+            OrderID,
+            OrderDate,
+            CustomerID,
+            CustomerName,
+            ProductID,
+            ProductName,
             PaymentMode,
-            TotalAmount,
-            Items, // Store the array of items
         });
 
         await newOrder.save();

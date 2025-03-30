@@ -35,9 +35,9 @@ const Cart = () => {
   const [formData, setFormData] = useState({
     name: "",
     address: "",
-    city: "Aligarh",
-    state: "Uttar Pradesh",
-    paymentMode: "Online",
+    city: "",
+    state: "",
+    paymentMode: "",
   });
   let userEmail=localStorage.getItem("email");
 
@@ -62,24 +62,30 @@ const Cart = () => {
 
     const orderData = {
       OrderID: `ORD-${Math.floor(100000 + Math.random() * 900000)}`,
-      OrderDate: new Date().toDateString(),
-      ShipDate: new Date(new Date().setDate(new Date().getDate() + 3)).toISOString(),
-      ShipMode: "Standard",
-      CustomerID: userEmail,
+      OrderDate: new Date().toISOString().split("T")[0], // Format as YYYY-MM-DD
+      ShipDate: new Date(new Date().setDate(new Date().getDate() + 3)).toISOString().split("T")[0],
+      ShipMode: ["Standard", "First", "Second", "Same Day"][Math.floor(Math.random() * 4)],
+      CustomerID: `CUS-${Math.floor(100000 + Math.random() * 900000)}`,
       CustomerName: formData.name,
-      Address: formData.address,
       City: formData.city,
       State: formData.state,
-      PaymentMode: formData.paymentMode,
-      TotalAmount: totalAmount,
-      Items: items.map(item => ({
-        ProductID: item.productId || "Unknown",
-        ProductName: item.name || "Unknown",
-        Quantity: item.quantity || 1,
-        Category: item.category || "General",
-        Subcategory: item.subcategory || "Others",
-      })),
-    };
+      Region: formData.region || ["east", "west", "north", "south"][Math.floor(Math.random() * 4)],
+      Category: formData.category || ["Menswear", "Womenwear", "Kidswear"][Math.floor(Math.random() * 3)],
+      SubCategory: formData.subcategory || ["Pants", "Shirt", "Skirt", "Shoes"][Math.floor(Math.random() * 4)],
+      Sales: totalAmount || 0, 
+      Quantity: items.reduce((sum, item) => sum + (item.quantity || 1), 0), // Sum of all item quantities
+      Profit: formData.profit || 0, 
+      Returns: formData.returns || "N/A",
+      AverageDelivery: formData.averageDelivery || 6, 
+      PaymentMode: formData.paymentMode || "Cards",
+      ProductID: items.length > 0 ? items[0].productId || "Unknown" : "Unknown",
+      ProductName: items.length > 0 ? items[0].name || "Unknown" : "Unknown",
+      Segment: formData.segment || ["Men", "Women", "Kids"][Math.floor(Math.random() * 3)],
+      Country: formData.country || "Unknown",
+      RowID: Math.floor(100000 + Math.random() * 900000), 
+  };
+  
+  
     console.log(orderData);
 
     try {
